@@ -1,0 +1,36 @@
+{
+  "name": "twitterbackend",
+  "version": "2.0.1",
+  "description": "Master Whitelist and Blacklist for Twitter Accounts",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "node server.js",
+    "build": "node server.js",
+    "lint": "eslint server.js test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bradmkjr/twitterbackend.git"
+  },
+  "author": "Bradford Knowlton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bradmkjr/twitterbackend/issues"
+  },
+  "homepage": "https://github.com/bradmkjr/twitterbackend#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "pg": "^7.4.0",
+    "pgcachedb": "^1.1.5",
+    "querystring": "^0.2.0",
+    "sqlcachedb": "^1.1.4",
+    "sqlite3": "^3.1.13",
+    "twit": "^2.2.9"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "eslint-plugin-jsdoc": "^3.1.3"
+  }
+}
