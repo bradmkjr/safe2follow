@@ -91,7 +91,7 @@ async function run(){
 
 async function loadStatuses(user_id){
 
-	let text, values, res, command, options, data; 
+	let text, values, res, command, options, data, max_id; 
 	
 	text = "SELECT * FROM status WHERE user_id = $1 ORDER BY status_id DESC;";
 	
@@ -114,7 +114,6 @@ async function loadStatuses(user_id){
 		    return result.data;
 		  });
 		
-		console.log('New Tweets: '+data.length);
 		if( data.length > 0 ){
 			for(var row of data){
 				storeStatus(row);
@@ -134,8 +133,44 @@ async function loadStatuses(user_id){
 		    return result.data;
 		  });
 		
+		if( data.length > 0 ){
+			for(var row of data){
+				storeStatus(row);									
+			}	
+		}
 		
-		console.log('Older Tweets: '+data.length);
+		max_id = data[data.length-1].id_str;
+		
+		command = 'statuses/user_timeline';
+		options = { "user_id": user_id, "count": 200, max_id: max_id }; 
+		// , "exclude_replies": false, "include_rts": false, "include_entities": false
+		
+		data = await T.get(command, options).catch(function (err) {
+		    console.log('caught error', err.stack)
+		  })
+		  .then(function (result) {
+		    return result.data;
+		  });
+		
+		if( data.length > 0 ){
+			for(var row of data){
+				storeStatus(row);									
+			}	
+		}
+		
+		max_id = data[data.length-1].id_str;
+		
+		command = 'statuses/user_timeline';
+		options = { "user_id": user_id, "count": 200, max_id: max_id }; 
+		// , "exclude_replies": false, "include_rts": false, "include_entities": false
+		
+		data = await T.get(command, options).catch(function (err) {
+		    console.log('caught error', err.stack)
+		  })
+		  .then(function (result) {
+		    return result.data;
+		  });
+		
 		if( data.length > 0 ){
 			for(var row of data){
 				storeStatus(row);									
@@ -157,8 +192,106 @@ async function loadStatuses(user_id){
 		    return result.data;
 		  });
 		
-		for(var row of data){
-			storeStatus(row);									
+		if( data != undefined && data.length > 0){
+			
+			for(var row of data){
+				storeStatus(row);									
+			}
+			
+			max_id = data[data.length-1].id_str;
+			
+			command = 'statuses/user_timeline';
+			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
+			// , "exclude_replies": false, "include_rts": false, "include_entities": false
+			
+			data = await T.get(command, options).catch(function (err) {
+			    console.log('caught error', err.stack)
+			  })
+			  .then(function (result) {
+			    return result.data;
+			  });
+			
+			if( data.length > 0 ){
+				for(var row of data){
+					storeStatus(row);									
+				}	
+			}
+			
+			max_id = data[data.length-1].id_str;
+			
+			command = 'statuses/user_timeline';
+			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
+			// , "exclude_replies": false, "include_rts": false, "include_entities": false
+			
+			data = await T.get(command, options).catch(function (err) {
+			    console.log('caught error', err.stack)
+			  })
+			  .then(function (result) {
+			    return result.data;
+			  });
+			
+			if( data.length > 0 ){
+				for(var row of data){
+					storeStatus(row);									
+				}	
+			}
+			
+			max_id = data[data.length-1].id_str;
+			
+			command = 'statuses/user_timeline';
+			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
+			// , "exclude_replies": false, "include_rts": false, "include_entities": false
+			
+			data = await T.get(command, options).catch(function (err) {
+			    console.log('caught error', err.stack)
+			  })
+			  .then(function (result) {
+			    return result.data;
+			  });
+			
+			if( data.length > 0 ){
+				for(var row of data){
+					storeStatus(row);									
+				}	
+			}
+			
+			max_id = data[data.length-1].id_str;
+			
+			command = 'statuses/user_timeline';
+			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
+			// , "exclude_replies": false, "include_rts": false, "include_entities": false
+			
+			data = await T.get(command, options).catch(function (err) {
+			    console.log('caught error', err.stack)
+			  })
+			  .then(function (result) {
+			    return result.data;
+			  });
+			
+			if( data.length > 0 ){
+				for(var row of data){
+					storeStatus(row);									
+				}	
+			}
+			
+			max_id = data[data.length-1].id_str;
+			
+			command = 'statuses/user_timeline';
+			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
+			// , "exclude_replies": false, "include_rts": false, "include_entities": false
+			
+			data = await T.get(command, options).catch(function (err) {
+			    console.log('caught error', err.stack)
+			  })
+			  .then(function (result) {
+			    return result.data;
+			  });
+			
+			if( data.length > 0 ){
+				for(var row of data){
+					storeStatus(row);									
+				}	
+			}
 		}
 		
 	}
