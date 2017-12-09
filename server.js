@@ -9,6 +9,32 @@
 
 // 'use strict';
 
+Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
+if(!Date.now) Date.now = function() { return new Date(); }
+Date.time = function() { return Date.now().getUnixTime(); }
+
+
+
+const conception = '2006-03-21 00:00:00';
+
+const conception_timestamp = new Date( conception ).getUnixTime();
+
+const max_statuses_count = '10343344';
+
+const max_followers_count = '106578515';
+
+var s = 0;
+
+var status_data;
+
+var phrases = {};
+var hashtags = {};
+var urls = 0;
+var total_words = 0;
+var unique_words = 0;
+
+var retweets = 0;
+
 const { Client } = require('pg');
 const client = new Client();
 
@@ -27,13 +53,17 @@ const cacheLifetime = '168 hours';
 
 async function run(){
 
+	let text, values, res
+	
 	await client.connect();
 	
-	const text = "SELECT user_name FROM account OFFSET floor( random() * ( SELECT reltuples FROM pg_class WHERE relname = 'account' ) ) LIMIT 1;";
+	text = "SELECT * FROM account OFFSET floor( random() * ( SELECT reltuples FROM pg_class WHERE relname = 'account' ) ) LIMIT 1;";
 	
-	const values = [];
+	// text = "SELECT * FROM account WHERE user_id = '22720424' LIMIT 1;";
 	
-	const res = await client.query(text, values);	
+	values = [];
+	
+	res = await client.query(text, values);	
 
 	if( res == undefined ){
 		console.log('Fail');
@@ -42,6 +72,16 @@ async function run(){
 		
 		// do stuff
 		
+		const user_id = res.rows[0].user_id;
+		
+		await loadStatuses(user_id);
+		
+		// var rating = new Rating();
+		// rating.init(res.rows[0]).ghost().virgin().celebrity().bot().company().output(); // .status()
+		
+		console.log('Finished');
+		
+		
 		
 	}
 
@@ -49,8 +89,108 @@ async function run(){
 	
 }
 
+async function loadStatuses(user_id){
+
+	let text, values, res, command, options, data; 
+	
+	text = "SELECT * FROM status WHERE user_id = $1 ORDER BY status_id DESC;";
+	
+	values = [user_id];
+	
+	res = await client.query(text, values).catch(e => console.error(e.stack));	
+
+	if( res.rows != undefined && res.rows.length > 0 ){
+		console.log('Starting Statuses: '+res.rows.length);
+		
+		// get NEWER statuses
+		command = 'statuses/user_timeline';
+		options = { "user_id": user_id, "count": 200, since_id: res.rows[0].status_id }; 
+		// , "exclude_replies": false, "include_rts": false, "include_entities": false
+		
+		data = await T.get(command, options).catch(function (err) {
+		    console.log('caught error', err.stack)
+		  })
+		  .then(function (result) {
+		    return result.data;
+		  });
+		
+		console.log('New Tweets: '+data.length);
+		if( data.length > 0 ){
+			for(var row of data){
+				storeStatus(row);
+			}
+		}
+		/////
+		
+		// Load OLDER statuses
+		command = 'statuses/user_timeline';
+		options = { "user_id": user_id, "count": 200, max_id: res.rows[res.rows.length - 1].status_id }; 
+		// , "exclude_replies": false, "include_rts": false, "include_entities": false
+		
+		data = await T.get(command, options).catch(function (err) {
+		    console.log('caught error', err.stack)
+		  })
+		  .then(function (result) {
+		    return result.data;
+		  });
+		
+		
+		console.log('Older Tweets: '+data.length);
+		if( data.length > 0 ){
+			for(var row of data){
+				storeStatus(row);									
+			}	
+		}
+		
+		
+	}else{
+		console.log('Load Some Statuses');
+		
+		command = 'statuses/user_timeline';
+		options = { "user_id": user_id, "count": 200  }; 
+		// , "exclude_replies": false, "include_rts": false, "include_entities": false
+		
+		data = await T.get(command, options).catch(function (err) {
+		    console.log('caught error', err.stack)
+		  })
+		  .then(function (result) {
+		    return result.data;
+		  });
+		
+		for(var row of data){
+			storeStatus(row);									
+		}
+		
+	}
+	
+	
+	
+	text = "SELECT * FROM status WHERE user_id = $1 ORDER BY status_id DESC;";
+	
+	values = [user_id];
+	
+	res = await client.query(text, values).catch(e => console.error(e.stack));	
+
+	if( res.rows != undefined ){
+		console.log('Total Statuses: '+res.rows.length);
+	}else{
+		console.log('No Statuses');
+	}
+	
+	// return an array of tweets
+	return res;
+}
+
+
+
 run();
 
+async function storeStatus(row){
+	let text, values;
+	text = "WITH upsert AS (UPDATE status SET data = $3, date_updated = now() WHERE status_id = $1 RETURNING *) INSERT INTO status ( status_id, user_id, data, date_created, date_updated, created_at ) SELECT $1, $2, $3, now(), now(), $4 WHERE NOT EXISTS (SELECT * FROM upsert);";
+	values = [ row.id_str, row.user.id_str, row, row.created_at ];
+	await client.query(text, values).catch(e => console.error(e.stack)); // end client.query
+}
 
 // define the class
 var Rating = function() {
@@ -201,7 +341,7 @@ Rating.prototype.status = function(){
 
 	var unqiue_word_list = new Array;
 
-	for(i=0;i<status_data.length;i++){
+	for(let i=0;i<status_data.length;i++){
 	
 		// console.log(status_data[i]);
 		
@@ -362,6 +502,3 @@ Rating.prototype.company = function(){
 
 
 
-Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
-if(!Date.now) Date.now = function() { return new Date(); }
-Date.time = function() { return Date.now().getUnixTime(); }
