@@ -676,7 +676,7 @@ async function run(){
 		
 	// account = "amazon";
 	
-	account = "DiscoveryID";
+	account = process.env.twitter_account;
 	
 	cursor = -1;
 	
@@ -689,7 +689,7 @@ async function run(){
 			  })
 			  .then(async function(data){
 					// console.log(data);
-					if( data.data != undefined ){
+					if( data.data != undefined && data.data.users != undefined && data.data.users.length > 0 ){
 						for (var follower of data.data.users ) {
 							console.log(follower.screen_name);
 							TC.recordAccount(follower);							
