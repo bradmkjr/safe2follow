@@ -13,7 +13,414 @@ Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
 if(!Date.now) Date.now = function() { return new Date(); }
 Date.time = function() { return Date.now().getUnixTime(); }
 
-
+const accounts = {
+"Visa":1,
+"Mastercard":1,
+"TheXFactorUSA":1,
+"VisaNews":1,
+"AmericanExpress":1,
+"Citi":1,
+"katyperry": 1,
+"justinbieber": 1,
+"BarackObama": 1,
+"taylorswift13": 1,
+"rihanna": 1,
+"TheEllenShow": 1,
+"ladygaga": 1,
+"YouTube": 2,
+"Cristiano": 1,
+"jtimberlake": 1,
+"Twitter": 2,
+"KimKardashian": 1,
+"britneyspears": 1,
+"ArianaGrande": 1,
+"selenagomez": 1,
+"cnnbrk": 2,
+"ddlovato": 1,
+"jimmyfallon": 1,
+"shakira": 1,
+"JLo": 1,
+"realDonaldTrump": 1,
+"BillGates": 1,
+"nytimes": 2,
+"Oprah": 1,
+"KingJames": 1,
+"instagram": 2,
+"CNN": 2,
+"MileyCyrus": 1,
+"BrunoMars": 1,
+"narendramodi": 1,
+"Drake": 1,
+"NiallOfficial": 1,
+"BBCBreaking": 2,
+"neymarjr": 1,
+"SportsCenter": 2,
+"KevinHart4real": 1,
+"espn": 2,
+"wizkhalifa": 1,
+"LilTunechi": 1,
+"onedirection": 1,
+"Harry_Styles": 1,
+"Pink": 1,
+"SrBachchan": 1,
+"iamsrk": 1,
+"Louis_Tomlinson": 1,
+"LiamPayne": 1,
+"aliciakeys": 1,
+"KAKA": 1,
+"Adele": 1,
+"BeingSalmanKhan": 1,
+"ActuallyNPH": 1,
+"realmadrid": 3,
+"danieltosh": 1,
+"EmmaWatson": 1,
+"NASA": 2,
+"NBA": 2,
+"ConanOBrien": 1,
+"pitbull": 1,
+"FCBarcelona": 3,
+"zaynmalik": 1,
+"khloekardashian": 1,
+"KendallJenner": 1,
+"coldplay": 1,
+"chrisbrown": 1,
+"NFL": 2,
+"KylieJenner": 1,
+"kourtneykardash": 1,
+"PMOIndia": 3,
+"TheEconomist": 2,
+"akshaykumar": 1,
+"aamir_khan": 1,
+"davidguetta": 1,
+"BBCWorld": 2,
+"deepikapadukone": 1,
+"Eminem": 1,
+"AvrilLavigne": 1,
+"sachin_rt": 1,
+"NICKIMINAJ": 1,
+"POTUS": 3,
+"NatGeo": 2,
+"iHrithik": 1,
+"blakeshelton": 1,
+"priyankachopra": 1,
+"edsheeran": 1,
+"imVkohli": 1,
+"MohamadAlarefe": 3,
+"ricky_martin": 1,
+"HillaryClinton": 1,
+"andresiniesta8": 1,
+"MesutOzil1088": 1,
+"MariahCarey": 1,
+"Google": 2,
+"Reuters": 2,
+"ChampionsLeague": 3,
+"aplusk": 1,
+"LeoDiCaprio": 1,
+"AlejandroSanz": 1,
+"Dr_alqarnee": 3,
+"arrahman": 1,
+"SnoopDogg": 1,
+"shugairi": 3,
+"agnezmo": 1,
+"KDTrey5": 1,
+"ParisHilton": 1,
+"AlArabiya_Brk": 3,
+"JimCarrey": 1,
+"3gerardpique": 1,
+"TwitterVideo": 2,
+"RyanSeacrest": 1,
+"xtina": 1,
+"WayneRooney": 1,
+"10Ronaldinho": 1,
+"premierleague": 3,
+"FoxNews": 2,
+"CNNEE": 2,
+"radityadika": 1,
+"StephenAtHome": 1,
+"VineCreators": 2,
+"ivetesangalo": 1,
+"DalaiLama": 1,
+"WhiteHouse": 2,
+"ManUtd": 3,
+"MTV": 2,
+"GarethBale11": 1,
+"TwitterLatAm": 2,
+"TwitterSports": 2,
+"POTUS44": 3,
+"ZacEfron": 1,
+"ShawnMendes": 1,
+"Pontifex_es": 1,
+"Beyonce": 1,
+"FALCAO": 1,
+"WSJ": 2,
+"elonmusk": 1,
+"RafaelNadal": 1,
+"PlayStation": 2,
+"Pontifex": 1,
+"TIME": 2,
+"maroon5": 1,
+"SHAQ": 1,
+"tyrabanks": 1,
+"jamesdrodriguez": 1,
+"salman_alodah": 3,
+"tomhanks": 1,
+"camerondallas": 1,
+"UberFacts": 2,
+"aliaa08": 1,
+"funnyordie": 2,
+"Forbes": 2,
+"facebook": 2,
+"ashleytisdale": 1,
+"ObamaWhiteHouse": 3,
+"virendersehwag": 1,
+"9GAG": 2,
+"paulocoelho": 1,
+"enriqueiglesias": 1,
+"iamwill": 1,
+"UberSoc": 2,
+"Alafasy": 3,
+"SethMacFarlane": 1,
+"BigSean": 1,
+"voguemagazine": 2,
+"diddy": 1,
+"AnushkaSharma": 1,
+"jk_rowling": 1,
+"karanjohar": 1,
+"CHANEL": 2,
+"pewdiepie": 1,
+"CalvinHarris": 1,
+"kobebryant": 1,
+"SergioRamos": 1,
+"TreySongz": 1,
+"stephenfry": 1,
+"victoriabeckham": 1,
+"AJArabic": 3,
+"LucianoHuck": 1,
+"rickygervais": 1,
+"ABC": 2,
+"ArvindKejriwal": 1,
+"elissakh": 1,
+"juniorbachchan": 1,
+"SimonCowell": 1,
+"Usher": 1,
+"sabqorg": 3,
+"aguerosergiokun": 1,
+"FCBarcelona_es": 3,
+"nickjonas": 1,
+"Xbox": 2,
+"SamsungMobile": 2,
+"LuisSuarez9": 1,
+"charliesheen": 1,
+"Arsenal": 3,
+"rustyrockets": 1,
+"TwitterMusic": 2,
+"NancyAjram": 1,
+"TheRock": 1,
+"SarahKSilverman": 1,
+"Ludacris": 1,
+"kelly_clarkson": 1,
+"AP": 2,
+"katyperry":1,
+"justinbieber":1,
+"BarackObama":1,
+"taylorswift13":1,
+"rihanna":1,
+"TheEllenShow":1,
+"ladygaga":1,
+"YouTube":1,
+"Cristiano":1,
+"jtimberlake":1,
+"Twitter":1,
+"KimKardashian":1,
+"britneyspears":1,
+"ArianaGrande":1,
+"selenagomez":1,
+"cnnbrk":1,
+"ddlovato":1,
+"jimmyfallon":1,
+"shakira":1,
+"realDonaldTrump":1,
+"JLo":1,
+"BillGates":1,
+"nytimes":1,
+"Oprah":1,
+"KingJames":1,
+"instagram":1,
+"BrunoMars":1,
+"CNN":1,
+"MileyCyrus":1,
+"narendramodi":1,
+"NiallOfficial":1,
+"Drake":1,
+"BBCBreaking":1,
+"neymarjr":1,
+"SportsCenter":1,
+"KevinHart4real":1,
+"espn":1,
+"wizkhalifa":1,
+"LilTunechi":1,
+"onedirection":1,
+"SrBachchan":1,
+"Pink":1,
+"Harry_Styles":1,
+"iamsrk":1,
+"Louis_Tomlinson":1,
+"LiamPayne":1,
+"aliciakeys":1,
+"KAKA":1,
+"Adele":1,
+"BeingSalmanKhan":1,
+"realmadrid":1,
+"ActuallyNPH":1,
+"EmmaWatson":1,
+"danieltosh":1,
+"NASA":1,
+"ConanOBrien":1,
+"NBA":1,
+"pitbull":1,
+"FCBarcelona":1,
+"zaynmalik":1,
+"coldplay":1,
+"KendallJenner":1,
+"khloekardashian":1,
+"chrisbrown":1,
+"NFL":1,
+"KylieJenner":1,
+"kourtneykardash":1,
+"PMOIndia":1,
+"akshaykumar":1,
+"TheEconomist":1,
+"aamir_khan":1,
+"deepikapadukone":1,
+"davidguetta":1,
+"BBCWorld":1,
+"sachin_rt":1,
+"Eminem":1,
+"AvrilLavigne":1,
+"POTUS":1,
+"NICKIMINAJ":1,
+"NatGeo":1,
+"iHrithik":1,
+"imVkohli":1,
+"priyankachopra":1,
+"blakeshelton":1,
+"HillaryClinton":1,
+"MohamadAlarefe":1,
+"edsheeran":1,
+"andresiniesta8":1,
+"MesutOzil1088":1,
+"ricky_martin":1,
+"MariahCarey":1,
+"Google":1,
+"ChampionsLeague":1,
+"Reuters":1,
+"aplusk":1,
+"LeoDiCaprio":1,
+"AlejandroSanz":1,
+"Dr_alqarnee":1,
+"arrahman":1,
+"SnoopDogg":1,
+"Love_McD":1,
+"akiko_lawson":1,
+"Favstar_Bot":1,
+"ElNacionalWeb":1,
+"urbandictionary":1,
+"t_hisashi":1,
+"jalannet":1,
+"711SEJ":1,
+"XboxSupport":1,
+"suntory":1,
+"emiri":1,
+"TandMProdCo":1,
+"STCcare":1,
+"SparVolltreffer":1,
+"ronfeir":1,
+"CaraotaDigital":1,
+"MovistarArg":1,
+"ENTORNOi":1,
+"ReadersGazette":1,
+"Ramdog1980":1,
+"Tesco":1,
+"PersonalAr":1,
+"IndieGameDevBot":1,
+"JobFairUSA":1,
+"hectorarturo":1,
+"SabuesoDigital_":1,
+"missb62":1,
+"Channel_MARS":1,
+"RevoarInfo":1,
+"mnnww3":1,
+"googlenewsjp":1,
+"MARS_ON_Spotify":1,
+"Reporte24VE":1,
+"ikamusume_chan":1,
+"oursounds":1,
+"La_Sopa_Digital":1,
+"nine_oh":1,
+"mutfaell1":1,
+"GersGirls":1,
+"famichikisenpai":1,
+"favstar1000favs":1,
+"072AvialCDMX":1,
+"TomthunkitsMind":1,
+"paul_cude":1,
+"TMobileHelp":1,
+"Story_terror":1,
+"yukinki2":1,
+"dipfox":1,
+"072CDMX":1,
+"JapanNewsFeeds":1,
+"okezonenews":1,
+"Info24US":1,
+"mgt_":1,
+"dirtysouthradio":1,
+"e_saudia5":1,
+"GNews_Center":1,
+"KITKATJapan":1,
+"ekidencom_pref":1,
+"The_News_DIVA":1,
+"camelcamelcamel":1,
+"JohnRosePutnam":1,
+"UNoticias":1,
+"ZSCoban":1,
+"EnkiVzla":1,
+"detikcom":1,
+"marcylauren":1,
+"TomWellborn":1,
+"bpm8":1,
+"NS_online":1,
+"sprintcare":1,
+"nytimesBrasil":1,
+"VINTAGE4MOMS":1,
+"JAL_Official_jp":1,
+"underdeskloser":1,
+"ShinobiNinja":1,
+"xxDCArt":1,
+"marshawright":1,
+"gerfingerpoken":1,
+"mutfaill23":1,
+"asahiinryo_jp":1,
+"DailyGawk":1,
+"liputan6dotcom":1,
+"ArkangelScrap":1,
+"O2":1,
+"yosikisi":1,
+"JamesRoy":1,
+"Alm3asr":1,
+"Panasonic_cp":1,
+"SFR_SAV":1,
+"TELMEXSoluciona":1,
+"manuvfm97":1,
+"republikaonline":1,
+"jurylady5":1,
+"ThreeUKSupport":1,
+"flashnewsportal":1,
+"1063atl":1,
+"M7Drsh":1,
+"MikkiL":1,
+"friendmoscow":1,
+"startupcrunch":1
+};
 
 const conception = '2006-03-21 00:00:00';
 
@@ -50,42 +457,129 @@ const T = new Twit( {
 // default age for active cache entries
 const cacheLifetime = '168 hours';
 
-
 async function run(){
 
-	let text, values, res
+	let screen_name, command, options, text, values, res, user_id;
 	
 	await client.connect();
 	
-	text = "SELECT * FROM account OFFSET floor( random() * ( SELECT reltuples FROM pg_class WHERE relname = 'account' ) ) LIMIT 1;";
-	
-	// text = "SELECT * FROM account WHERE user_id = '22720424' LIMIT 1;";
-	
-	values = [];
-	
-	res = await client.query(text, values);	
+	for( var account in accounts ){
+		// console.log(account);
+		
+		// console.log(account);
+		
+		screen_name = account;
+		
+		// console.log(screen_name);
+		
+		command = 'users/show';
+		options = { "screen_name": screen_name, "include_entities": false  };	
+		
+		
+		
+		/*
+		await T.get(command, options)
+		.catch(function (err) {
+		    console.log('caught error', err.stack)
+		})
+		.then(async function (result) {
+			// console.log(result.data);
+		
+			text = "WITH upsert AS (UPDATE account SET data = $3, date_updated = now() WHERE user_id = $1 RETURNING *) INSERT INTO account ( user_id, user_name, data, date_created, date_updated, followers_count, friends_count, statuses_count, created_at, status_created_at ) SELECT $1, $2, $3, now(), now(), $4, $5, $6, $7, $8 WHERE NOT EXISTS (SELECT * FROM upsert);";
+			values = [ result.data.id_str, result.data.screen_name, result.data, result.data.followers_count, result.data.friends_count, result.data.statuses_count, result.data.created_at, (result.data.status != undefined && result.data.status.created_at != undefined)?result.data.status.created_at:null ];
 
-	if( res == undefined ){
-		console.log('Fail');
-	}else{
-		console.log(res.rows[0].user_name);
+			// callback
+			await client.query(text, values).catch(e => console.error(e.stack));
+		});
+*/
+
 		
-		// do stuff
+		// query database for data based on key with date within lifetime
+		text = "SELECT command, options, data FROM twitapicache WHERE command = $1 AND options = $2 AND date_updated > now() - interval '"+cacheLifetime+"' ;";
+		values = [command, options];
 		
-		const user_id = res.rows[0].user_id;
+		// callback
+		res = await client.query(text, values).catch(e => console.error(e.stack));
 		
-		await loadStatuses(user_id);
+		if( res == undefined ){
+			// Cache Miss!!
+			console.log('Cache Miss: user/show '+screen_name);
+			// twitterApi(command, options, process_user);
+			res = await T.get(command, options)
+			.catch(function (err) {
+			    console.log('caught error', err.stack)
+			})
+			.then(async function (result) {
+				text = "WITH upsert AS (UPDATE account SET data = $3, date_updated = now() WHERE user_id = $1 RETURNING *) INSERT INTO account ( user_id, user_name, data, date_created, date_updated, followers_count, friends_count, statuses_count, created_at, status_created_at ) SELECT $1, $2, $3, now(), now(), $4, $5, $6, $7, $8 WHERE NOT EXISTS (SELECT * FROM upsert);";
+				values = [ result.data.id_str, result.data.screen_name, result.data, result.data.followers_count, result.data.friends_count, result.data.statuses_count, result.data.created_at, (result.data.status != undefined && result.data.status.created_at != undefined)?result.data.status.created_at:null ];
+	
+				// callback
+				await client.query(text, values).catch(e => console.error(e.stack));
+			});
+			
+			
+		}else{
+			// Cache HIT						
+			console.log('Cache Hit: user/show '+screen_name);			
+		}			
 		
-		// var rating = new Rating();
-		// rating.init(res.rows[0]).ghost().virgin().celebrity().bot().company().output(); // .status()
-		
-		console.log('Finished');
+		// console.log(account);
 		
 		
+		text = "SELECT * FROM account WHERE user_name = $1 LIMIT 1;";
 		
+		values = [account];
+		
+		res = await client.query(text, values).catch(e => console.error(e.stack));
+	
+		if( res == undefined || res.rows.length == 0 ){
+			console.log('FAILED');
+			//console.log(res);
+		}else{
+			// console.log(res.rows[0].user_name);
+			
+			// do stuff
+			
+			user_id = res.rows[0].user_id;
+			
+			await loadStatuses(user_id);
+			
+			await rateAccount(account);
+			
+			// var rating = new Rating();
+			// rating.init(res.rows[0]).ghost().virgin().celebrity().bot().company().output(); // .status()
+			
+			console.log('Finished');
+			console.log();			
+		}
 	}
 
 	await client.end();
+	
+	process.exit();
+}
+
+async function rateAccount(account){
+
+	let text, values, res, rating, data, statuses;
+	
+	text = "SELECT * FROM account WHERE user_name = $1 LIMIT 1;";
+
+	values = [account];
+		
+	res = await client.query(text, values);	
+	
+	rating = new Rating();
+	
+	data = res.rows[0].data;
+	
+	statuses = await loadStatusesFromDb(res.rows[0].user_id);
+	
+	// console.log(statuses);
+	
+	// rating.init(data).ghost().virgin().celebrity().company().output(); // .status() .bot()
+	
+	rating.init(data, statuses).celebrity().company().output(); // .status() .bot() .ghost() .virgin()
 	
 }
 
@@ -98,6 +592,8 @@ async function loadStatuses(user_id){
 	values = [user_id];
 	
 	res = await client.query(text, values).catch(e => console.error(e.stack));	
+
+	// console.log(res);
 
 	if( res.rows != undefined && res.rows.length > 0 ){
 		console.log('Starting Statuses: '+res.rows.length);
@@ -114,34 +610,14 @@ async function loadStatuses(user_id){
 		    return result.data;
 		  });
 		
-		if( data.length > 0 ){
-			for(var row of data){
-				storeStatus(row);
-			}
-		}
+		if( data.length > 0 ){ for(var row of data){ storeStatus(row); } }		
+		
 		/////
+		
+		max_id = res.rows[res.rows.length - 1].status_id;
 		
 		// Load OLDER statuses
 		command = 'statuses/user_timeline';
-		options = { "user_id": user_id, "count": 200, max_id: res.rows[res.rows.length - 1].status_id }; 
-		// , "exclude_replies": false, "include_rts": false, "include_entities": false
-		
-		data = await T.get(command, options).catch(function (err) {
-		    console.log('caught error', err.stack)
-		  })
-		  .then(function (result) {
-		    return result.data;
-		  });
-		
-		if( data.length > 0 ){
-			for(var row of data){
-				storeStatus(row);									
-			}	
-		}
-		
-		max_id = data[data.length-1].id_str;
-		
-		command = 'statuses/user_timeline';
 		options = { "user_id": user_id, "count": 200, max_id: max_id }; 
 		// , "exclude_replies": false, "include_rts": false, "include_entities": false
 		
@@ -152,32 +628,8 @@ async function loadStatuses(user_id){
 		    return result.data;
 		  });
 		
-		if( data.length > 0 ){
-			for(var row of data){
-				storeStatus(row);									
-			}	
-		}
-		
-		max_id = data[data.length-1].id_str;
-		
-		command = 'statuses/user_timeline';
-		options = { "user_id": user_id, "count": 200, max_id: max_id }; 
-		// , "exclude_replies": false, "include_rts": false, "include_entities": false
-		
-		data = await T.get(command, options).catch(function (err) {
-		    console.log('caught error', err.stack)
-		  })
-		  .then(function (result) {
-		    return result.data;
-		  });
-		
-		if( data.length > 0 ){
-			for(var row of data){
-				storeStatus(row);									
-			}	
-		}
-		
-		
+		if( data.length > 0 ){ for(var row of data){ storeStatus(row); } }	
+			
 	}else{
 		console.log('Load Some Statuses');
 		
@@ -211,92 +663,9 @@ async function loadStatuses(user_id){
 			    return result.data;
 			  });
 			
-			if( data.length > 0 ){
-				for(var row of data){
-					storeStatus(row);									
-				}	
-			}
-			
-			max_id = data[data.length-1].id_str;
-			
-			command = 'statuses/user_timeline';
-			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
-			// , "exclude_replies": false, "include_rts": false, "include_entities": false
-			
-			data = await T.get(command, options).catch(function (err) {
-			    console.log('caught error', err.stack)
-			  })
-			  .then(function (result) {
-			    return result.data;
-			  });
-			
-			if( data.length > 0 ){
-				for(var row of data){
-					storeStatus(row);									
-				}	
-			}
-			
-			max_id = data[data.length-1].id_str;
-			
-			command = 'statuses/user_timeline';
-			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
-			// , "exclude_replies": false, "include_rts": false, "include_entities": false
-			
-			data = await T.get(command, options).catch(function (err) {
-			    console.log('caught error', err.stack)
-			  })
-			  .then(function (result) {
-			    return result.data;
-			  });
-			
-			if( data.length > 0 ){
-				for(var row of data){
-					storeStatus(row);									
-				}	
-			}
-			
-			max_id = data[data.length-1].id_str;
-			
-			command = 'statuses/user_timeline';
-			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
-			// , "exclude_replies": false, "include_rts": false, "include_entities": false
-			
-			data = await T.get(command, options).catch(function (err) {
-			    console.log('caught error', err.stack)
-			  })
-			  .then(function (result) {
-			    return result.data;
-			  });
-			
-			if( data.length > 0 ){
-				for(var row of data){
-					storeStatus(row);									
-				}	
-			}
-			
-			max_id = data[data.length-1].id_str;
-			
-			command = 'statuses/user_timeline';
-			options = { "user_id": user_id, "count": 200, max_id: max_id }; 
-			// , "exclude_replies": false, "include_rts": false, "include_entities": false
-			
-			data = await T.get(command, options).catch(function (err) {
-			    console.log('caught error', err.stack)
-			  })
-			  .then(function (result) {
-			    return result.data;
-			  });
-			
-			if( data.length > 0 ){
-				for(var row of data){
-					storeStatus(row);									
-				}	
-			}
-		}
-		
+			if( data.length > 0 ){ for(var row of data){ storeStatus(row); } }					
+		}		
 	}
-	
-	
 	
 	text = "SELECT * FROM status WHERE user_id = $1 ORDER BY status_id DESC;";
 	
@@ -337,9 +706,11 @@ var Rating = function() {
   	
 };
 
-Rating.prototype.init = function(data){
+Rating.prototype.init = function(data, statuses){
 
 	this.data = data;
+	
+	this.statuses = statuses;
 	
 	this.screen_name = this.data.screen_name;
 		  	
@@ -571,6 +942,7 @@ Rating.prototype.bot = function(){
 	
 	this.bot.timestamp = new Date( this.result.created_at ).getUnixTime();
 	
+	/*
 	if( status_data.length != undefined ){
 		
 		// Load into Result from Data
@@ -580,6 +952,9 @@ Rating.prototype.bot = function(){
 		// never tweeted		
 		this.bot.statuses_count = 0;		
 	}
+	*/
+	
+	this.bot.statuses_count = 0;		
 	
 	this.bot.retweet_percentage = (retweets / this.bot.statuses_count );
 		
@@ -594,28 +969,47 @@ Rating.prototype.bot = function(){
 
 Rating.prototype.company = function(){
 
+	
 	this.company = {};
+	
+	this.company.retweet_count = 0;
+	this.company.favorite_count = 0;
 		
 	// Load into Result from Data
 	this.company.created_at = this.data.created_at;
 	
 	this.company.timestamp = new Date( this.result.created_at ).getUnixTime();
+
+	// console.log(  this.data.id_str );
 	
-	if( status_data.length != undefined ){
-		
-		// Load into Result from Data
-		this.company.statuses_count = status_data.length;
-			
-	}else{
-		// never tweeted		
-		this.company.statuses_count = 0;		
-	}
+	// console.log(this.statuses);
+	
+	console.log('Status Count: '+this.statuses.length);
+	
+	// console.log(this.statuses);
+	
+	// console.log(this.statuses[0].data.text);
 	
 	// console.log('Urls: '+urls);
 	// console.log('Statuses Count: '+this.company.statuses_count);
 	// console.log( this.data );
 	
 	// this.company.verified_percentage = (this.data.verified)?1:.5;
+	
+	for( var status in this.statuses ){
+		// console.log(status.data.text);
+		// console.log(this.statuses[status].data.text);
+		this.company.retweet_count += this.statuses[status].data.retweet_count; 
+		this.company.favorite_count += this.statuses[status].data.favorite_count;
+		
+	}
+	
+	console.log( 'ReTweet Count: '+this.company.retweet_count );
+	console.log( 'Favorite Count: '+this.company.favorite_count );
+	
+	console.log( 'Average ReTweet Count: '+ ( this.company.retweet_count / this.statuses.length ) );
+	console.log( 'Average Favorite Count: '+ ( this.company.favorite_count / this.statuses.length ) );
+	
 	
 	this.company.url_percentage = ( urls / this.company.statuses_count )?( urls / this.company.statuses_count ):1;
 	
@@ -634,4 +1028,26 @@ Rating.prototype.company = function(){
 }
 
 
+async function loadStatusesFromDb( user_id ){
 
+	let text, values, res; 
+
+	text = "SELECT * FROM status WHERE user_id = $1;";
+	
+	values = [ user_id ];
+	
+	res = await client.query(text, values).catch(e => console.error(e.stack));	
+
+	// console.log(res);
+
+	if( res.rows != undefined && res.rows.length > 0 ){
+		// console.log(res.rows);
+		return res.rows;
+		
+	}else{
+	
+		return null;		
+		
+	}
+	
+}
