@@ -17,6 +17,8 @@ const client = new Client({
   ssl: false,
 });
 
+let counter = 0;
+
 class TwitCache {
 
     /**
@@ -695,10 +697,12 @@ async function run(){
 							TC.recordAccount(follower);							
 						}
 						console.log('Followers Added: '+data.data.users.length);
+						counter = counter + data.data.users.length;
 					}	
 					if( data.data != undefined && data.data.next_cursor_str != undefined && data.data.next_cursor_str != 0 ){
 						cursor = data.data.next_cursor_str;
 						console.log("Next Cursor: "+cursor);
+						console.log("Accounts Added: "+counter);
 						await getFollowers(account, cursor);					
 					}
 			  });
